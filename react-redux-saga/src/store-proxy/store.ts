@@ -8,6 +8,10 @@ export interface PropStore {
   [key: string]: PropWithState;
 }
 
+
+const EventEmitter = new Events();
+EventEmitter.setMaxListeners(Number.MAX_SAFE_INTEGER);
+
 const storeKey = "obj1";
 
 const combined: PropStore = {
@@ -38,3 +42,7 @@ export const createStore = (EventEmitter: Events): PropStore => {
   }
   return store;
 }
+
+const store = createStore(EventEmitter);
+
+export {store, EventEmitter}
