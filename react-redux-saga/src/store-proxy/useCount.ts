@@ -1,9 +1,10 @@
 import { useEffect, useState, useCallback } from "react";
 import { PropWithState } from "./store";
 import { saveStore } from "./persist";
-const storeKey = "obj1";
 
-const { store, EventEmitter } = (global as any).react;
+import { store, EventEmitter } from './store';
+
+const storeKey = "obj1";
 
 const useCount = () => {
   const [state, setState] = useState<PropWithState["state"]>({});
