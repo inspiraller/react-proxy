@@ -1,0 +1,27 @@
+
+import { AnyAction, Store } from 'redux';
+import configureStore from './configureStore';
+import { loadState } from './persist';
+import { ApplicationState } from './rootReducer';
+
+/* eslint-disable import/no-mutable-exports */
+export type Tstore = Store<ApplicationState, AnyAction>;
+
+interface PropStoreEmpty {
+  store?: Tstore;
+}
+
+interface PropStore {
+  store: Tstore;
+}
+
+let objStore: PropStoreEmpty | PropStore = {};
+
+if (!objStore.store) {
+  objStore = configureStore({ initialState: loadState() });
+}
+
+export default objStore as PropStore;
+
+// to update
+export type RootState = any;
