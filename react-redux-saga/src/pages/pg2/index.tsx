@@ -1,11 +1,15 @@
-import {useState, useEffect} from 'react';
 import Head from 'next/head'
 import Link from 'next/link';
 import styles from '@/styles/Home.module.css'
-import useCount from '@/store-proxy/useCount';
+import useCount from '@/store-proxy/data/counter/useCount';
 
 export default function Pg2() {
-  const {state, triggerProxyChange} = useCount()
+  const {state, dispatch} = useCount()
+
+  console.log('state.count = ', state.count);
+  const triggerProxyChange = () => {
+    dispatch(state.count + 1);
+  }
 
   return (
     <>

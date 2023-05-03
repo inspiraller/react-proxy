@@ -1,12 +1,12 @@
-import {useState, useEffect} from 'react';
+import { useEffect} from 'react';
 import Head from 'next/head'
 import Link from 'next/link';
 import styles from '@/styles/Home.module.css'
-import useCount from '@/store-proxy/useCount';
+import useCount from '@/store-proxy/data/counter/useCount';
 import useUser from '@/store-sagas/data/auth/user/useUser';
 
 export default function Home() {
-  const {state, triggerProxyChange} = useCount()
+  const {state, dispatch} = useCount()
 
   const {auth, acUserUpdate} = useUser();
 
@@ -20,6 +20,11 @@ export default function Home() {
     console.log('auth updated = ', auth);    
   }, [auth]);
 
+  
+  console.log('state.count = ', state.count);
+  const triggerProxyChange = () => {
+    dispatch(state.count + 1);
+  }
   return (
     <>
       <Head>

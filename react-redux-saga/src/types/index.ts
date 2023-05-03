@@ -7,3 +7,4 @@ export * from './_css';
 export * from './_util';
 export * from './_events';
 export * from './_user-superadmin';
+export * from './_proxy';

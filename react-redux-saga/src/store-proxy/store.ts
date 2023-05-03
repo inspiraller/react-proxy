@@ -1,48 +1,42 @@
 import Events from "events";
+import EventEmitter from "./EventEmitter";
 import { loadStore } from "./persist";
+import { PropStore } from '@/types';
 
-export interface PropWithState {
-  state: any;
-}
-export interface PropStore {
-  [key: string]: PropWithState;
-}
-
-
-const EventEmitter = new Events();
-EventEmitter.setMaxListeners(Number.MAX_SAFE_INTEGER);
-
-const storeKey = "obj1";
+import { storeKey as storeKeyCounter } from "./data/counter/_initialState";
+import initialStateCounter from "@/store-proxy/data/counter/_initialState";
 
 const combined: PropStore = {
-  [storeKey]: {
-    state: {
-      count: 0 // initial state
-    }
-  }
-}
+  [storeKeyCounter]: {
+    state: initialStateCounter,
+  },
+};
 
 export const createStore = (EventEmitter: Events): PropStore => {
-  let store: PropStore = loadStore();
-  if (!store) {
-    store = Object.keys(combined).reduce((acc, cur) => {
-      const proxied = new Proxy(combined[cur], {
-        set: function setProxy (target, key, val) {
-          if (target[key as 'state'] !== val) { // target.state = {}
-            target[key as 'state'] = val;
-            target[key as keyof typeof target] = val;
-            EventEmitter.emit(key, val);
-          }
-          return Reflect.get(target, key, val);
+  const loadedStore: PropStore = loadStore();
+  const store = Object.keys(combined).reduce((acc, cur) => {
+    const proxied = new Proxy(loadedStore?.[cur] ?? combined[cur], {
+      set: function setProxy(target, key, val) {
+        if (target[key as "state"] !== val) {
+          // target.state = {}
+          target[key as "state"] = val;
+          target[key as keyof typeof target] = val;
+
+          console.log('emitting', {key, val})
+          EventEmitter.emit(key, val);
         }
-      })
-      acc[cur] = proxied;
-      return acc;
-    }, {} as PropStore);
-  }
+        return Reflect.get(target, key, val);
+      },
+    });
+    acc[cur] = proxied;
+    return acc;
+  }, {} as PropStore);
+  
   return store;
-}
+};
 
 const store = createStore(EventEmitter);
 
-export {store, EventEmitter}
+console.log('10) ', {store})
+
+export { store, EventEmitter };
