@@ -1,28 +1,11 @@
-import { useEffect} from 'react';
-import Head from 'next/head'
-import Link from 'next/link';
-import styles from '@/styles/Home.module.css'
-import useCount from '@/store-proxy/data/counter/useCount';
-import useUser from '@/store-sagas/data/auth/user/useUser';
+import Head from "next/head";
+import Link from "next/link";
+import styles from "@/styles/Home.module.css";
+
+import Count from "@/components/ProxyCount";
+import SagaCounter from "@/components/SagaCount";
 
 export default function Home() {
-  const {state, dispatch} = useCount()
-
-  const {auth, acUserUpdate} = useUser();
-
-  const triggerReduxSagaUpdate = () => {
-    acUserUpdate({
-      first_name: 'abigaile',
-      last_name: 'hunter'
-    })
-  }
-  useEffect(() => {
-    console.log('auth updated = ', auth);    
-  }, [auth]);
-
-  const triggerProxyChange = () => {
-    dispatch(state.count + 1);
-  }
   return (
     <>
       <Head>
@@ -32,14 +15,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        count:{state.count}
-        <button onClick={triggerProxyChange}>Trigger count increase</button>
-
-        <button onClick={triggerReduxSagaUpdate}>Trigger saga update</button>
+        <Count />
+        <SagaCounter />
+        
         <Link href="/pg2">Go to page 2</Link>
-
-
       </main>
     </>
-  )
+  );
 }
