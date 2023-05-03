@@ -20,8 +20,6 @@ export default function Home() {
     console.log('auth updated = ', auth);    
   }, [auth]);
 
-  
-  console.log('state.count = ', state.count);
   const triggerProxyChange = () => {
     dispatch(state.count + 1);
   }

@@ -16,14 +16,16 @@ export const createStore = (EventEmitter: Events): PropStore => {
   const loadedStore: PropStore = loadStore();
   const store = Object.keys(combined).reduce((acc, cur) => {
     const proxied = new Proxy(loadedStore?.[cur] ?? combined[cur], {
-      set: function setProxy(target, key, val) {
-        if (target[key as "state"] !== val) {
-          // target.state = {}
-          target[key as "state"] = val;
-          target[key as keyof typeof target] = val;
+      set: function setProxy(target, key, val) { // key is state
+        if (target.state !== val) {
+          target.state = val;
 
-          console.log('emitting', {key, val})
-          EventEmitter.emit(key, val);
+          // 2) 
+          // input: Triggered by mutating the state of original object
+          // output: EventEmitter.on
+
+          console.log('2) emitting', {cur, key, val})
+          EventEmitter.emit(cur, val);
         }
         return Reflect.get(target, key, val);
       },
@@ -36,7 +38,5 @@ export const createStore = (EventEmitter: Events): PropStore => {
 };
 
 const store = createStore(EventEmitter);
-
-console.log('10) ', {store})
 
 export { store, EventEmitter };

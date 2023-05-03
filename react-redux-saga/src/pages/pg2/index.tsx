@@ -6,7 +6,6 @@ import useCount from '@/store-proxy/data/counter/useCount';
 export default function Pg2() {
   const {state, dispatch} = useCount()
 
-  console.log('state.count = ', state.count);
   const triggerProxyChange = () => {
     dispatch(state.count + 1);
   }
