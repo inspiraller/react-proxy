@@ -1,5 +1,5 @@
 import { PERSIST_STORE, KILL_STORE } from '@/config';
-import { PropStore } from './store';
+import { PropStore } from '@/types';
 
 type TloadStore = () => PropStore;
 export const loadStore: TloadStore = () => {

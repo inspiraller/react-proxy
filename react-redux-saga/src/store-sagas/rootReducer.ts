@@ -1,12 +1,12 @@
-import { combineReducers } from 'redux';
-import auth from './data/auth';
+import { combineReducers, AnyAction, Store } from 'redux';
+import counter from './data/counter/reducer';
 
 export interface ApplicationState {
-  auth: ReturnType<typeof auth>;
+  counter?: ReturnType<typeof counter>;
 }
 
-const rootReducer = {
-  auth
+export const rootReducer = {
+  counter
 };
 
 const createRootReducer = () =>
@@ -15,3 +15,15 @@ const createRootReducer = () =>
   });
 
 export default createRootReducer;
+
+
+/* eslint-disable import/no-mutable-exports */
+export type Tstore = Store<ApplicationState, AnyAction>;
+
+interface PropStoreEmpty {
+  store?: Tstore;
+}
+
+interface PropStore {
+  store: Tstore;
+}

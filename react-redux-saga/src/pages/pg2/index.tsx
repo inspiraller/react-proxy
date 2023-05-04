@@ -1,12 +1,9 @@
-import {useState, useEffect} from 'react';
-import Head from 'next/head'
-import Link from 'next/link';
-import styles from '@/styles/Home.module.css'
-import useCount from '@/store-proxy/useCount';
-
+import Head from "next/head";
+import Link from "next/link";
+import styles from "@/styles/Home.module.css";
+import Count from "@/components/ProxyCount";
+import SagaCounter from "@/components/SagaCount";
 export default function Pg2() {
-  const {state, triggerProxyChange} = useCount()
-
   return (
     <>
       <Head>
@@ -16,10 +13,14 @@ export default function Pg2() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        count:{state.count}
-        <button onClick={triggerProxyChange}>Trigger count increase</button>
+
+          <Count />
+          <Count />
+          
+          <SagaCounter />
+          <SagaCounter />
         <Link href="/">Go to Home</Link>
       </main>
     </>
-  )
+  );
 }

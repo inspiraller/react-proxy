@@ -4,16 +4,16 @@ import { ApplicationState } from '@/store-sagas/rootReducer';
 import at from './actionTypes';
 import { IInitial } from './_initialState';
 
-const useUser = () => {
+const useCount = () => {
   const dispatch = useDispatch();
-  const acUserUpdate = (payload: IInitial) =>
+  const acCounterUpdate = (payload: IInitial) =>
     dispatch({
-      type: at.UPDATE_USER,
+      type: at.UPDATE_COUNTER,
       payload
     });
   return {
-    auth: useSelector((state: ApplicationState) => state.auth),
-    acUserUpdate
+    counter: useSelector((state: ApplicationState) => state.counter) ?? {count: 0},
+    acCounterUpdate
   };
 };
-export default useUser;
+export default useCount;
