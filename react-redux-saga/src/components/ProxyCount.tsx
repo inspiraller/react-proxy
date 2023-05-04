@@ -8,10 +8,10 @@ const Count = () => {
   };
 
   return (
-    <>
+    <div>
       count:{state.count}
-      <button onClick={handleIncrement}>Trigger count increase</button>
-    </>
+      <button onClick={handleIncrement}>Trigger Proxy Counter</button>
+    </div>
   );
 }
 

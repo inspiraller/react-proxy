@@ -26,27 +26,6 @@ export const rdcCounterUpdate: TrdcCounterUpdate = ({ state, action }) => {
   };
 };
 
-// function* sagaUpdateSomethingElse(action: PropActionUpdateCounter): TGenGeneric<IInitial> {
-//   // const { payload } = action;
-//   const payloadExistingState = yield select(state => {
-//     const { count } = state.auth.counter;
-//     return {
-//       count
-
-//     };
-//   });
-  // yield put({
-  //   type: at.UPDATE_SOMETHING_ELSE,
-  //   payload: {
-  //     somethingElse: `hello ${payloadExistingState.first_name}`
-  //   }
-  // });
-// }
-
-// function* sagaWatchUpdateUser() {
-//   yield takeEvery(at.UPDATE_COUNTER, sagaUpdateSomethingElse);
-// }
-
 export { actions };
 
 export default actions;

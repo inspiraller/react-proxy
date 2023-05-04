@@ -16,12 +16,10 @@ export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     const objStore = constructStore({ initialState: loadState() })
     setStore(objStore.store);
-    // store.dispatch({type: RESET_TOP_LEVEL}); // resets to localstorage..
     objStore.store.subscribe(() => {
       saveState(objStore.store.getState());
     });
-
   }, []);
 
-  return store ? <Provider store={store as Tstore}><Component {...pageProps} /></Provider> : null
+  return store ? <Provider store={store}><Component {...pageProps} /></Provider> : null
 }

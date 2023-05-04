@@ -1,19 +1,13 @@
-import { createStore, applyMiddleware, compose, Store } from 'redux';
-
+import { configureStore, Store } from '@reduxjs/toolkit'
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './saga/rootSaga';
-
 import createRootReducer, { ApplicationState } from './rootReducer';
-// import middlewareResetTopLevel from './middlewareResetTopLevel';
 
 type TConfigure = (arbitrary: {
   initialState: ApplicationState;
 }) => { store: Store<ApplicationState> };
 
 const constructStore: TConfigure = ({ initialState }) => {
-  const composeEnhancers =
-    ((global as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ as typeof compose) || compose;
-
   // credits: https://yiniski.medium.com/redux-saga-error-handling-7f1dafa4be37
   const sagaMiddleware = createSagaMiddleware({
     onError: err => {
@@ -22,15 +16,14 @@ const constructStore: TConfigure = ({ initialState }) => {
     }
   });
 
-  const middlewares = [sagaMiddleware];
-  const enhancer = composeEnhancers(applyMiddleware(...middlewares));
-  const reducers = createRootReducer();
+  const reducer = createRootReducer();
 
-  const store = createStore<ApplicationState, any, any, any>(
-    reducers,
-    initialState,
-    enhancer
-  ) as Store<ApplicationState>;
+  const store = configureStore({
+    reducer,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(sagaMiddleware),
+    devTools: process.env.NODE_ENV !== 'production',
+    preloadedState: initialState
+  }) as Store<ApplicationState>;
   sagaMiddleware.run(rootSaga);
   return { store };
 };

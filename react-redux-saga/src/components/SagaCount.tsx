@@ -15,7 +15,7 @@ const  SagaCounter = () => {
     <div>
       {counter.count}
 
-      <button onClick={handleIncrement}>Trigger saga update</button>
+      <button onClick={handleIncrement}>Trigger SAGA counter</button>
     </div>
   );
 }
