@@ -1,18 +1,16 @@
-
-import Link from "next/link";
-import useCount from "@/store-proxy/data/counter/useCount";
+import useProxyCount from "@/store-proxy/data/counter/useCount";
 
 const Count = () => {
-  const { state, dispatch } = useCount();
+  const { state, dispatch } = useProxyCount();
 
-  const triggerProxyChange = () => {
+  const handleIncrement = () => {
     dispatch(state.count + 1);
   };
 
   return (
     <>
       count:{state.count}
-      <button onClick={triggerProxyChange}>Trigger count increase</button>
+      <button onClick={handleIncrement}>Trigger count increase</button>
     </>
   );
 }

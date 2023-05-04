@@ -8,8 +8,8 @@ import {
 } from "@/types";
 import { store } from "@/store-proxy/store";
 import EventEmitter from "@/store-proxy/EventEmitter";
-import { saveStore } from "@/store-proxy/persist";
 import { PropsInitialState } from "@/store-proxy/data/counter/_initialState";
+import { saveStore } from "@/store-proxy/persist";
 
 interface PropsOutput {
   state: PropWithState["state"];
@@ -57,7 +57,7 @@ const withUse = ({
       // 4) 
       // input: update of local state
       // output: persist into localStorage if desired.
-      // saveStore(store);
+      saveStore(store);
       console.log(
         "4) update local state for storeKey",
         storeKey,

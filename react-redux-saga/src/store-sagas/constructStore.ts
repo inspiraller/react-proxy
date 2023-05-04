@@ -4,12 +4,13 @@ import createSagaMiddleware from 'redux-saga';
 import rootSaga from './saga/rootSaga';
 
 import createRootReducer, { ApplicationState } from './rootReducer';
+// import middlewareResetTopLevel from './middlewareResetTopLevel';
 
 type TConfigure = (arbitrary: {
   initialState: ApplicationState;
 }) => { store: Store<ApplicationState> };
 
-const configureStore: TConfigure = ({ initialState }) => {
+const constructStore: TConfigure = ({ initialState }) => {
   const composeEnhancers =
     ((global as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ as typeof compose) || compose;
 
@@ -21,11 +22,10 @@ const configureStore: TConfigure = ({ initialState }) => {
     }
   });
 
-  //const middlewares: Array<Middleware<{}, ApplicationState> | ThunkMiddleware<ApplicationState, AnyAction>> = [
   const middlewares = [sagaMiddleware];
   const enhancer = composeEnhancers(applyMiddleware(...middlewares));
   const reducers = createRootReducer();
-  // const store = createStore<ApplicationState, GActionResultAjax<any>, any, any>(
+
   const store = createStore<ApplicationState, any, any, any>(
     reducers,
     initialState,
@@ -35,4 +35,4 @@ const configureStore: TConfigure = ({ initialState }) => {
   return { store };
 };
 
-export default configureStore;
+export default constructStore;

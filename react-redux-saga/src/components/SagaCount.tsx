@@ -1,23 +1,21 @@
 import { useEffect } from "react";
-import useUser from "@/store-sagas/data/auth/user/useUser";
+import useCount from "@/store-sagas/data/counter/useCount";
 const  SagaCounter = () => {
-  const { auth, acUserUpdate } = useUser();
-  const triggerReduxSagaUpdate = () => {
-    acUserUpdate({
-      first_name: "abigaile",
-      last_name: "hunter",
+  const { counter, acCounterUpdate } = useCount();
+  const handleIncrement = () => {
+    acCounterUpdate({
+      count: counter.count + 1
     });
   };
   useEffect(() => {
-    console.log("auth updated = ", auth);
-  }, [auth]);
+
+  }, [counter]);
 
   return (
     <div>
-      {auth.user.first_name}
-      {auth.user.last_name}
+      {counter.count}
 
-      <button onClick={triggerReduxSagaUpdate}>Trigger saga update</button>
+      <button onClick={handleIncrement}>Trigger saga update</button>
     </div>
   );
 }

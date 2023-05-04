@@ -1,8 +1,7 @@
 import { PERSIST_STORE, KILL_STORE } from 'src/config';
+import { ApplicationState } from './rootReducer';
 
-import { RootState } from './getStore';
-
-type TloadState = () => RootState;
+type TloadState = () => ApplicationState;
 export const loadState: TloadState = () => {
   if (KILL_STORE) {
     localStorage.removeItem('state');
@@ -32,7 +31,7 @@ export const killLocalStorageSocketState = () => {
   }
 };
 
-type TsaveState = (state: RootState) => void;
+type TsaveState = (state: ApplicationState) => void;
 export const saveState: TsaveState = state => {
   if (!PERSIST_STORE) {
     return;
