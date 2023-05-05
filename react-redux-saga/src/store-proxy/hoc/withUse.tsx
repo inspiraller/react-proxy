@@ -1,9 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { AnyAction } from "redux";
-import {
-  PropWithState,
-} from "@/types";
-import { store } from "@/store-proxy/store";
+
+import { PropWithState, store } from "@/store-proxy/store";
 import EventEmitter from "@/store-proxy/EventEmitter";
 import { saveStore } from "@/store/persist";
 
