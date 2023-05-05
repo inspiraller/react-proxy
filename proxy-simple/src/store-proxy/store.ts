@@ -1,10 +1,9 @@
 import Events from "events";
 import EventEmitter from "./EventEmitter";
-import { loadStore } from "@/store/persist";
+import { loadStore } from "@/store-proxy/persist";
 
-import { storeKey as storeKeyCounter } from "./data/counter/storeKey";
+import { initialState, storeKey as storeKeyCounter } from "./counter/storeKey";
 
-import initialStateCounter from "@/store/data/counter/_initialState";
 
 export interface PropWithState {
   state: any;
@@ -13,15 +12,14 @@ export interface PropProxyStore {
   [key: string]: PropWithState;
 }
 
-
 const combined: PropProxyStore = {
   [storeKeyCounter]: {
-    state: initialStateCounter,
+    state: initialState
   },
 };
 
 export const createStore = (EventEmitter: Events): PropProxyStore => {
-  const loadedStore = loadStore() as PropProxyStore;
+  const loadedStore = loadStore();
   const store = Object.keys(combined).reduce((acc, cur) => {
     const proxied = new Proxy(loadedStore?.[cur] ?? combined[cur], {
       set: function setProxy(target, key, val) { // key is state
@@ -31,8 +29,6 @@ export const createStore = (EventEmitter: Events): PropProxyStore => {
           // 2) 
           // input: Triggered by mutating the state of original object
           // output: EventEmitter.on
-
-          console.log('2) emitting', {cur, key, val})
           EventEmitter.emit(cur, val);
         }
         return Reflect.get(target, key, val);

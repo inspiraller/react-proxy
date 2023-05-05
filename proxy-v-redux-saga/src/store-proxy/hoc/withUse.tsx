@@ -31,7 +31,6 @@ const withUse = ({
         // input: Triggered by EventEmitter.emit
         // output: set local state
 
-        console.log("3) EventEmitter on", val);
         setState(val); 
       };
       // (global as any).addEventListener(storeKey, cb);
@@ -51,11 +50,6 @@ const withUse = ({
       // input: update of local state
       // output: persist into localStorage if desired.
       saveStore(store);
-      console.log(
-        "4) update local state for storeKey",
-        storeKey,
-        store[storeKey].state
-      );
 
       /* eslint-disable react-hooks/exhaustive-deps */
    //  }, [store?.[storeKey]?.state]);
@@ -64,11 +58,17 @@ const withUse = ({
     const dispatch = useCallback(function triggerDispatch(actionResult: AnyAction) {
       // dispatch
       const stateUpdated = reducer(store[storeKey].state, actionResult);
-      console.log("1) mutate original data", { store });
       // 1) 
       // input: Triggered by action.
       // output: MUTATE ORIGINAL DATA STORE TO TRIGGER PROXY CHANGE
       store[storeKey].state = stateUpdated;
+
+
+      // NOTE: Don't do this
+      //store[storeKey] = {state: stateUpdated}
+      // Otherwise you overwrite store.proxyCounter = {} and it isn't a proxy anymore.
+
+
 
       return stateUpdated;
     }, []);
