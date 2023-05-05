@@ -1,11 +1,11 @@
 
 export const storeKey = "counter";
 
-export interface PropsInitialState {
+export interface IInitial {
   count: number;
 }
 
-const initialState: PropsInitialState = {
+const initialState: IInitial = {
   count: 0
 }
 

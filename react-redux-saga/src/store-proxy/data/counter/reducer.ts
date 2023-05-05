@@ -1,13 +1,13 @@
-import { PropStore, TAnyActionResult } from '@/types';
-import { PropsInitialState, storeKey } from "./_initialState";
-import at from './actionTypes';
-import { reduceUpdateCount } from './actionCount';
 
-const reducer = (store: PropStore, actionResult: TAnyActionResult): PropsInitialState => {
-  const state = store[storeKey].state;
+import { AnyAction } from "redux";
+import { IInitial } from "./_initialState";
+import at from './actionTypes';
+import { rdcCounterUpdate } from './actions/CounterUpdate';
+
+const reducer = (state: IInitial, actionResult: AnyAction): IInitial => {
   switch (actionResult.type) {
-    case at.UPDATE_COUNT:
-      return reduceUpdateCount({store, payload: actionResult.payload})
+    case at.COUNTER_UPDATE:
+      return rdcCounterUpdate({state, action: actionResult})
     default:
       return state;
   }

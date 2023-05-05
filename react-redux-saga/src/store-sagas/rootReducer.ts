@@ -2,7 +2,7 @@ import { combineReducers, AnyAction, Store } from 'redux';
 import counter from './data/counter/reducer';
 
 export interface ApplicationState {
-  counter?: ReturnType<typeof counter>;
+  counter: ReturnType<typeof counter>;
 }
 
 export const rootReducer = {

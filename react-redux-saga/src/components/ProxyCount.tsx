@@ -1,10 +1,11 @@
-import useProxyCount from "@/store-proxy/data/counter/useCount";
+import useCounter from "@/store-proxy/data/counter/useCounter";
+import { acCounterUpdate } from "@/store-proxy/data/counter/actions/CounterUpdate";
 
 const Count = () => {
-  const { state, dispatch } = useProxyCount();
+  const { state, dispatch } = useCounter();
 
   const handleIncrement = () => {
-    dispatch(state.count + 1);
+    dispatch(acCounterUpdate({count: state.count + 1}));
   };
 
   return (

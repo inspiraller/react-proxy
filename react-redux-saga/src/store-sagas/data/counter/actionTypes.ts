@@ -3,7 +3,7 @@ export type TAt = {
 };
 
 const at: TAt = {
-  UPDATE_COUNTER: '@counter/UPDATE_COUNTER'
+  COUNTER_UPDATE: '@counter/COUNTER_UPDATE'
 };
 
 export { at };
