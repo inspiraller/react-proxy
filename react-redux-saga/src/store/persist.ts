@@ -34,7 +34,7 @@ export const killStore = () => {
   }
 };
 
-type TsaveStore = (store: PropProxyStore | ApplicationState, isOverwrite: boolean) => void;
+type TsaveStore = (store: PropProxyStore | ApplicationState, isOverwrite?: boolean) => void;
 export const saveStore: TsaveStore = (storeToSave, isOverwrite = false) => {
   if (!PERSIST_STORE) {
     return;
