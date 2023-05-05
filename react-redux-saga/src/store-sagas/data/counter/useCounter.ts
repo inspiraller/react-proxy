@@ -4,7 +4,7 @@ import { ApplicationState } from '@/store-sagas/rootReducer';
 const useCounter = () => {
   const dispatch = useDispatch();
   return {
-    state: useSelector((state: ApplicationState) => state.counter),
+    state: useSelector((state: ApplicationState) => state.reduxCounter),
     dispatch
   };
 };

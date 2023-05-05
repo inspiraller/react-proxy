@@ -1,5 +1,5 @@
 import useCounter from "@/store-proxy/data/counter/useCounter";
-import { acCounterUpdate } from "@/store-proxy/data/counter/actions/CounterUpdate";
+import { acCounterUpdate } from "@/store/data/counter/actions/CounterUpdate";
 
 const Count = () => {
   const { state, dispatch } = useCounter();

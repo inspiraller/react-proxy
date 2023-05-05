@@ -1,5 +1,5 @@
 import useCounter from "@/store-sagas/data/counter/useCounter";
-import { acCounterUpdate } from "@/store-sagas/data/counter/actions/CounterUpdate";
+import { acCounterUpdate } from "@/store/data/counter/actions/CounterUpdate";
 const  SagaCounter = () => {
   const { state, dispatch } = useCounter();
   const handleIncrement = () => {

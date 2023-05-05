@@ -3,9 +3,7 @@ import { AnyAction } from 'redux';
 import at from '../actionTypes';
 import { IInitial } from '../_initialState';
 
-
-export type TacCounterUpdate = (payload: IInitial) => AnyAction;
-export const acCounterUpdate: TacCounterUpdate = payload => ({
+export const acCounterUpdate = (payload: IInitial): AnyAction => ({
   type: at.COUNTER_UPDATE,
   payload
 });

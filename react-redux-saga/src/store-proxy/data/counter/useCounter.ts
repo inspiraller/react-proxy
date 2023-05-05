@@ -1,6 +1,7 @@
-import withUse from "@/hocs/withUse";
-import { storeKey } from "./_initialState";
-import reducer from "./reducer";
+import withUse from "@/store-proxy/hoc/withUse";
+import { storeKey } from "./storeKey";
+import reducer from "@/store/data/counter/reducer";
+
 
 const useCounter = withUse({ storeKey, reducer }); 
 // @example: 

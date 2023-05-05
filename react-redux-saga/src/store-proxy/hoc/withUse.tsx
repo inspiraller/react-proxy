@@ -1,14 +1,13 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { AnyAction } from "redux";
 import {
-  TAnyActionResult,
   PropWithState,
 } from "@/types";
 import { store } from "@/store-proxy/store";
 import EventEmitter from "@/store-proxy/EventEmitter";
-import { IInitial } from "@/store-proxy/data/counter/_initialState";
-import { saveStore } from "@/store-proxy/persist";
+import { saveStore } from "@/store/persist";
 
+import { IInitial } from "@/store/data/counter/_initialState";
 interface PropsOutput {
   state: PropWithState["state"];
   dispatch: (payload: any) => PropWithState["state"];
@@ -64,7 +63,7 @@ const withUse = ({
    //  }, [store?.[storeKey]?.state]);
     }, [state]);
 
-    const dispatch = useCallback(function triggerDispatch(actionResult: TAnyActionResult) {
+    const dispatch = useCallback(function triggerDispatch(actionResult: AnyAction) {
       // dispatch
       const stateUpdated = reducer(store[storeKey].state, actionResult);
       console.log("1) mutate original data", { store });

@@ -1,6 +1,6 @@
 import { fork, all } from 'redux-saga/effects';
 
-// import { sagaWatchUpdateUser } from '../data/auth/counter/actions/actionUpdateUser';
+// import { sagaWatchUpdateUser } from '../data/auth/reduxCounter/actions/actionUpdateUser';
 
 function* rootSaga() {
   // yield all([
