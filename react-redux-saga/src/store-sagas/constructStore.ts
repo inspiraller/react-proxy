@@ -22,7 +22,7 @@ const constructStore: TConfigure = ({ initialState }) => {
     reducer,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(sagaMiddleware),
     devTools: process.env.NODE_ENV !== 'production',
-    preloadedState: initialState
+   preloadedState: initialState // don't preload with null
   }) as Store<ApplicationState>;
   sagaMiddleware.run(rootSaga);
   return { store };

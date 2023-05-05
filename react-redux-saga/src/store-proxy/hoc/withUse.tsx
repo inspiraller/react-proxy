@@ -1,16 +1,13 @@
 import React, { useEffect, useState, useCallback } from "react";
-
+import { AnyAction } from "redux";
 import {
-  TAnyAction,
-  TAnyActionResult,
   PropWithState,
-  PropStore,
 } from "@/types";
 import { store } from "@/store-proxy/store";
 import EventEmitter from "@/store-proxy/EventEmitter";
-import { PropsInitialState } from "@/store-proxy/data/counter/_initialState";
-import { saveStore } from "@/store-proxy/persist";
+import { saveStore } from "@/store/persist";
 
+import { IInitial } from "@/store/data/counter/_initialState";
 interface PropsOutput {
   state: PropWithState["state"];
   dispatch: (payload: any) => PropWithState["state"];
@@ -18,16 +15,14 @@ interface PropsOutput {
 
 interface PropsWithUse {
   storeKey: string;
-  action: TAnyAction;
   reducer: (
-    store: PropStore,
-    actionResult: TAnyActionResult
-  ) => PropsInitialState;
+    state: IInitial,
+    actionResult: AnyAction
+  ) => IInitial;
 }
 
 const withUse = ({
   storeKey,
-  action,
   reducer,
 }: PropsWithUse): (() => PropsOutput) => {
   const useProxyState = () => {
@@ -68,11 +63,9 @@ const withUse = ({
    //  }, [store?.[storeKey]?.state]);
     }, [state]);
 
-    const dispatch = useCallback(function triggerDispatch(payload: any) {
+    const dispatch = useCallback(function triggerDispatch(actionResult: AnyAction) {
       // dispatch
-      const actionResult = action(payload);
-      const stateUpdated = reducer(store, actionResult);
-
+      const stateUpdated = reducer(store[storeKey].state, actionResult);
       console.log("1) mutate original data", { store });
       // 1) 
       // input: Triggered by action.

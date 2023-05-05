@@ -1,14 +1,12 @@
-
-
 import { AnyAction } from 'redux';
 import at from './actionTypes';
 import initialState, { IInitial } from './_initialState';
-import {rdcCounterUpdate, PropActionUpdateCounter} from './actions/actionUpdateCounter';
+import {rdcCounterUpdate} from './actions/CounterUpdate';
 
 const reducer = (state: IInitial = initialState, action: AnyAction): IInitial => {
   switch (action.type) {
-    case at.UPDATE_COUNTER:
-      return rdcCounterUpdate({state, action} as {state: IInitial, action: PropActionUpdateCounter});
+    case at.COUNTER_UPDATE:
+      return rdcCounterUpdate({state, action} as {state: IInitial, action: AnyAction});
     default:
       return state;
   }

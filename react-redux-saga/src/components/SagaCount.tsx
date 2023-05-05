@@ -1,20 +1,14 @@
-import { useEffect } from "react";
-import useCount from "@/store-sagas/data/counter/useCount";
+import useCounter from "@/store-sagas/data/counter/useCounter";
+import { acCounterUpdate } from "@/store/data/counter/actions/CounterUpdate";
 const  SagaCounter = () => {
-  const { counter, acCounterUpdate } = useCount();
+  const { state, dispatch } = useCounter();
   const handleIncrement = () => {
-    acCounterUpdate({
-      count: counter.count + 1
-    });
+    dispatch(acCounterUpdate( {count: state.count + 1}));
   };
-  useEffect(() => {
-
-  }, [counter]);
 
   return (
     <div>
-      {counter.count}
-
+      {state.count}
       <button onClick={handleIncrement}>Trigger SAGA counter</button>
     </div>
   );
